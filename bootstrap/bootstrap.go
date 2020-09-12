@@ -8,6 +8,7 @@ import (
 	"github.com/dipeshdulal/clean-gin/lib"
 	"github.com/dipeshdulal/clean-gin/routers"
 	"github.com/dipeshdulal/clean-gin/services"
+	"github.com/joho/godotenv"
 	"go.uber.org/fx"
 )
 
@@ -24,6 +25,7 @@ func bootstrap(
 	lifecycle fx.Lifecycle,
 	handler lib.RequestHandler,
 	routes routers.Routes,
+	env lib.Env,
 ) {
 	lifecycle.Append(fx.Hook{
 		OnStart: func(context.Context) error {
@@ -31,9 +33,13 @@ func bootstrap(
 			fmt.Println("---------------------")
 			fmt.Println("------- CLEAN -------")
 			fmt.Println("---------------------")
+
+			godotenv.Load()
+			env.LoadEnv()
+
 			go func() {
 				routes.Setup()
-				handler.Gin.Run(":5000")
+				handler.Gin.Run(env.ServerPort)
 			}()
 			return nil
 		},
