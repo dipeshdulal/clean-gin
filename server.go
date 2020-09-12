@@ -1,14 +1,10 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/dipeshdulal/clean-gin/bootstrap"
+	"go.uber.org/fx"
+)
 
 func main() {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-
-	r.Run(":5000")
+	fx.New(bootstrap.Module).Run()
 }
