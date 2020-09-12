@@ -3,10 +3,10 @@
 Trying to implement clean architecture with gin framework. 
 
 #### Checklist
-- [ ] Implement Dependency Injection 
+- [x] Implement Dependency Injection 
+- [x] Routing
 - [ ] Environment Files
 - [ ] Logging 
 - [ ] Middlewares 
-- [ ] Routing
 - [ ] ORM
 - etc. (Add more later)
