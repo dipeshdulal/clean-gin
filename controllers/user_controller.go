@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"github.com/dipeshdulal/clean-gin/lib"
 	"github.com/dipeshdulal/clean-gin/services"
 	"github.com/gin-gonic/gin"
 )
@@ -12,16 +13,17 @@ type UserController struct {
 }
 
 // NewUserController creates new user controller
-func NewUserController(userService services.UserService) UserController {
+func NewUserController(userService services.UserService, logger lib.Logger) UserController {
 	return UserController{
-		Get:  getUserController(userService),
+		Get:  getUserController(userService, logger),
 		Post: postUserController(),
 	}
 }
 
-func getUserController(userService services.UserService) func(*gin.Context) {
+func getUserController(userService services.UserService, logger lib.Logger) func(*gin.Context) {
 	return func(c *gin.Context) {
 		userService.CreateUser()
+		logger.Zap.Info("Get user route called")
 		c.JSON(200, "Get User")
 	}
 }
