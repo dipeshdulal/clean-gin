@@ -7,6 +7,7 @@ import (
 	"github.com/dipeshdulal/clean-gin/controllers"
 	"github.com/dipeshdulal/clean-gin/lib"
 	"github.com/dipeshdulal/clean-gin/routers"
+	"github.com/dipeshdulal/clean-gin/services"
 	"go.uber.org/fx"
 )
 
@@ -15,6 +16,7 @@ var Module = fx.Options(
 	controllers.Module,
 	routers.Module,
 	lib.Module,
+	services.Module,
 	fx.Invoke(bootstrap),
 )
 
