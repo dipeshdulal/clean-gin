@@ -18,14 +18,21 @@ var Module = fx.Options(
 	fx.Invoke(bootstrap),
 )
 
-func bootstrap(lifecycle fx.Lifecycle, handler lib.RequestHandler) {
+func bootstrap(
+	lifecycle fx.Lifecycle,
+	handler lib.RequestHandler,
+	routes routers.Routes,
+) {
 	lifecycle.Append(fx.Hook{
 		OnStart: func(context.Context) error {
 			fmt.Println("Starting Application")
 			fmt.Println("---------------------")
 			fmt.Println("------- CLEAN -------")
 			fmt.Println("---------------------")
-			go handler.Gin.Run(":5000")
+			go func() {
+				routes.Setup()
+				handler.Gin.Run(":5000")
+			}()
 			return nil
 		},
 		OnStop: func(context.Context) error {
