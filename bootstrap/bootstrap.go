@@ -28,6 +28,7 @@ func bootstrap(
 	env lib.Env,
 	logger lib.Logger,
 	middlewares middlewares.Middlewares,
+	database lib.Database,
 ) {
 
 	lifecycle.Append(fx.Hook{
@@ -46,6 +47,7 @@ func bootstrap(
 		},
 		OnStop: func(context.Context) error {
 			logger.Zap.Info("Stopping Application")
+			database.DB.Close()
 			return nil
 		},
 	})

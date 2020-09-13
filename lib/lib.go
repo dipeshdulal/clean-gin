@@ -7,4 +7,5 @@ var Module = fx.Options(
 	fx.Provide(NewRequestHandler),
 	fx.Provide(NewEnv),
 	fx.Provide(NewLogger),
+	fx.Provide(NewDatabase),
 )
