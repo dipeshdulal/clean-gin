@@ -19,3 +19,5 @@ Trying to implement clean architecture with gin framework.
 - [ ] Models Setup and Automigrate
 - [ ] Repositories
 - [ ] Implementing Basic CRUD Operation
+- [ ] Dockerize Application with Debugging Support Enabled
+- [ ] OpenAPI Documentation
