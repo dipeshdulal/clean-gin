@@ -24,12 +24,12 @@ func getUserController(userService services.UserService, logger lib.Logger) func
 	return func(c *gin.Context) {
 		userService.CreateUser()
 		logger.Zap.Info("Get user route called")
-		c.JSON(200, "Get User")
+		c.JSON(200, gin.H{"message": "get user"})
 	}
 }
 
 func postUserController() func(*gin.Context) {
 	return func(c *gin.Context) {
-		c.JSON(200, "Post User")
+		c.JSON(200, gin.H{"message": "post user"})
 	}
 }
