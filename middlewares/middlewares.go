@@ -17,6 +17,7 @@ type IMiddleware interface {
 type Middlewares []IMiddleware
 
 // NewMiddlewares creates new middlewares
+// Register the middleware that should be applied directly
 func NewMiddlewares(corsMiddleware CorsMiddleware) Middlewares {
 	return Middlewares{
 		corsMiddleware,
