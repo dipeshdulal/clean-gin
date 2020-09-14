@@ -31,3 +31,8 @@ func (r UserRepository) Save(user models.User) (models.User, error) {
 func (r UserRepository) Update(user models.User) (models.User, error) {
 	return user, r.db.DB.Update(&user).Error
 }
+
+// GetOne gets ont user
+func (r UserRepository) GetOne(id uint) (user models.User, err error) {
+	return user, r.db.DB.Where("id = ?", id).First(&user).Error
+}
