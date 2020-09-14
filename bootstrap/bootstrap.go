@@ -7,6 +7,7 @@ import (
 	"github.com/dipeshdulal/clean-gin/lib"
 	"github.com/dipeshdulal/clean-gin/middlewares"
 	"github.com/dipeshdulal/clean-gin/models"
+	"github.com/dipeshdulal/clean-gin/repository"
 	"github.com/dipeshdulal/clean-gin/routes"
 	"github.com/dipeshdulal/clean-gin/services"
 	"go.uber.org/fx"
@@ -20,6 +21,7 @@ var Module = fx.Options(
 	services.Module,
 	middlewares.Module,
 	models.Module,
+	repository.Module,
 	fx.Invoke(bootstrap),
 )
 

@@ -17,8 +17,7 @@ func (s UserRoutes) Setup() {
 	s.logger.Zap.Info("Setting up routes")
 	api := s.handler.Gin.Group("/api")
 	{
-		api.GET("/user", s.userController.Get)
-		api.POST("/user", s.userController.Post)
+		api.GET("/user", s.userController.GetUser)
 	}
 }
 

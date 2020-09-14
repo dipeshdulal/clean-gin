@@ -8,28 +8,23 @@ import (
 
 // UserController data type
 type UserController struct {
-	Get  func(c *gin.Context)
-	Post func(c *gin.Context)
+	service services.UserService
+	logger  lib.Logger
 }
 
 // NewUserController creates new user controller
 func NewUserController(userService services.UserService, logger lib.Logger) UserController {
 	return UserController{
-		Get:  getUserController(userService, logger),
-		Post: postUserController(),
+		service: userService,
+		logger:  logger,
 	}
 }
 
-func getUserController(userService services.UserService, logger lib.Logger) func(*gin.Context) {
-	return func(c *gin.Context) {
-		userService.CreateUser()
-		logger.Zap.Info("Get user route called")
-		c.JSON(200, gin.H{"message": "get user"})
+// GetUser gets the user
+func (u UserController) GetUser(c *gin.Context) {
+	users, err := u.service.GetAllUser()
+	if err != nil {
+		u.logger.Zap.Error(err)
 	}
-}
-
-func postUserController() func(*gin.Context) {
-	return func(c *gin.Context) {
-		c.JSON(200, gin.H{"message": "post user"})
-	}
+	c.JSON(200, gin.H{"data": users})
 }
