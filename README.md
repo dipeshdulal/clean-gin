@@ -16,8 +16,8 @@ Trying to implement clean architecture with gin framework.
 - [x] Logging (file saving on `production`) [zap](https://github.com/uber-go/zap)
 - [x] Middlewares 
 - [x] Database Setup
-- [ ] Models Setup and Automigrate
-- [ ] Repositories
+- [x] Models Setup and Automigrate
+- [x] Repositories
 - [ ] Implementing Basic CRUD Operation
 - [ ] Dockerize Application with Debugging Support Enabled
 - [ ] OpenAPI Documentation
