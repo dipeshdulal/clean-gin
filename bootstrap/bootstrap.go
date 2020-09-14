@@ -6,6 +6,7 @@ import (
 	"github.com/dipeshdulal/clean-gin/controllers"
 	"github.com/dipeshdulal/clean-gin/lib"
 	"github.com/dipeshdulal/clean-gin/middlewares"
+	"github.com/dipeshdulal/clean-gin/models"
 	"github.com/dipeshdulal/clean-gin/routes"
 	"github.com/dipeshdulal/clean-gin/services"
 	"go.uber.org/fx"
@@ -18,6 +19,7 @@ var Module = fx.Options(
 	lib.Module,
 	services.Module,
 	middlewares.Module,
+	models.Module,
 	fx.Invoke(bootstrap),
 )
 
@@ -29,6 +31,7 @@ func bootstrap(
 	logger lib.Logger,
 	middlewares middlewares.Middlewares,
 	database lib.Database,
+	migrations models.Migrations,
 ) {
 
 	lifecycle.Append(fx.Hook{
@@ -39,6 +42,7 @@ func bootstrap(
 			logger.Zap.Info("---------------------")
 
 			go func() {
+				migrations.Migrate()
 				middlewares.Setup()
 				routes.Setup()
 				handler.Gin.Run(env.ServerPort)
