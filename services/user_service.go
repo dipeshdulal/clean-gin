@@ -4,6 +4,7 @@ import (
 	"github.com/dipeshdulal/clean-gin/lib"
 	"github.com/dipeshdulal/clean-gin/models"
 	"github.com/dipeshdulal/clean-gin/repository"
+	"github.com/jinzhu/copier"
 )
 
 // UserService service layer
@@ -36,4 +37,25 @@ func (s UserService) GetAllUser() ([]models.User, error) {
 func (s UserService) CreateUser(user models.User) error {
 	_, err := s.repository.Save(user)
 	return err
+}
+
+// UpdateUser updates the user
+func (s UserService) UpdateUser(id uint, user models.User) error {
+
+	userDB, err := s.GetOneUser(id)
+	if err != nil {
+		return err
+	}
+
+	copier.Copy(&userDB, &user)
+
+	userDB.ID = id
+
+	_, err = s.repository.Update(userDB)
+	return err
+}
+
+// DeleteUser deletes the user
+func (s UserService) DeleteUser(id uint) error {
+	return s.repository.Delete(id)
 }

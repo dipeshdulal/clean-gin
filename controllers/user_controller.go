@@ -83,3 +83,60 @@ func (u UserController) SaveUser(c *gin.Context) {
 
 	c.JSON(200, gin.H{"data": "user created"})
 }
+
+// UpdateUser updates user
+func (u UserController) UpdateUser(c *gin.Context) {
+	user := models.User{}
+	paramID := c.Param("id")
+
+	if err := c.ShouldBindJSON(&user); err != nil {
+		u.logger.Zap.Error(err)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	id, err := strconv.Atoi(paramID)
+	if err != nil {
+		u.logger.Zap.Error(err)
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err,
+		})
+		return
+	}
+
+	if err := u.service.UpdateUser(uint(id), user); err != nil {
+		u.logger.Zap.Error(err)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(200, gin.H{"data": "user updated"})
+}
+
+// DeleteUser deletes user
+func (u UserController) DeleteUser(c *gin.Context) {
+	paramID := c.Param("id")
+
+	id, err := strconv.Atoi(paramID)
+	if err != nil {
+		u.logger.Zap.Error(err)
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err,
+		})
+		return
+	}
+
+	if err := u.service.DeleteUser(uint(id)); err != nil {
+		u.logger.Zap.Error(err)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(200, gin.H{"data": "user deleted"})
+}
