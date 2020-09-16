@@ -24,5 +24,6 @@ Trying to implement clean architecture with gin framework.
 - [x] Models Setup and Automigrate (gorm)
 - [x] Repositories
 - [x] Implementing Basic CRUD Operation
+- [ ] Authentication (JWT, Firebase)
 - [ ] OpenAPI Documentation
 - [ ] Dockerize Application with Debugging Support Enabled
