@@ -14,8 +14,8 @@ type JWTAuthService struct {
 	logger lib.Logger
 }
 
-// NewAuthService creates a new auth service
-func NewAuthService(env lib.Env, logger lib.Logger) JWTAuthService {
+// NewJWTAuthService creates a new auth service
+func NewJWTAuthService(env lib.Env, logger lib.Logger) JWTAuthService {
 	return JWTAuthService{
 		env:    env,
 		logger: logger,
@@ -48,10 +48,10 @@ func (s JWTAuthService) CreateToken(user models.User) string {
 		"email": *user.Email,
 	})
 
-	tokenString, err := token.SignedString(s.env.JWTSecret)
+	tokenString, err := token.SignedString([]byte(s.env.JWTSecret))
 
 	if err != nil {
-		s.logger.Zap.Error("JWT validation failed", err)
+		s.logger.Zap.Error("JWT validation failed: ", err)
 	}
 
 	return tokenString
