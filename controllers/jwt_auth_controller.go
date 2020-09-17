@@ -29,6 +29,8 @@ func NewJWTAuthController(
 // SignIn signs in user
 func (jwt JWTAuthController) SignIn(c *gin.Context) {
 	jwt.logger.Zap.Info("SignIn route called")
+	// Currently not checking for username and password
+	// Can add the logic later if necessary.
 	user, _ := jwt.userService.GetOneUser(uint(3))
 	token := jwt.service.CreateToken(user)
 	c.JSON(200, gin.H{
