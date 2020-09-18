@@ -25,5 +25,5 @@ Trying to implement clean architecture with gin framework.
 - [x] Repositories
 - [x] Implementing Basic CRUD Operation
 - [x] Authentication (JWT)
-- [ ] OpenAPI Documentation
 - [ ] Dockerize Application with Debugging Support Enabled
+- [ ] OpenAPI Documentation
