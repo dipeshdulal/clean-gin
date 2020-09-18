@@ -1,0 +1,37 @@
+version: "3.3"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/web.Dockerfile
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/clean_web
+    env_file: .env
+    depends_on:
+      - database
+
+  database:
+    build:
+      context: .
+      dockerfile: ./docker/db.Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DATABASE: clean_gin
+    ports:
+      - 33066:3306
+    volumes:
+      - clean_data:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    ports:
+      - 5001:8080
+
+volumes:
+  clean_data:
+      
