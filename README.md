@@ -1,21 +1,24 @@
-## Clean Gin 
+## Clean Gin
 
-Trying to implement clean architecture with gin framework. 
+Trying to implement clean architecture with gin framework.
 
 #### Environment Variables
-|  Key | Value | Desc |
-|------|-------|------|
-| `ServerPort`  | `:5000` | Port at which app runs | 
-| `Environment` | `development,production` | App running Environment |
-| `LogOutput`   | `./server.log` | Output Directory to save logs |
-| `DBUsername`  | `username` | Database Username |
-| `DBPassword`  | `password` | Database Password |
-| `DBHost`      | `0.0.0.0`  | Database Host     |
-| `DBPort`      | `3306`     | Database Port     |
-| `DBName`      | `test`     | Database Name     |   
+
+| Key           | Value                    | Desc                          |
+| ------------- | ------------------------ | ----------------------------- |
+| `ServerPort`  | `:5000`                  | Port at which app runs        |
+| `Environment` | `development,production` | App running Environment       |
+| `LogOutput`   | `./server.log`           | Output Directory to save logs |
+| `DBUsername`  | `username`               | Database Username             |
+| `DBPassword`  | `password`               | Database Password             |
+| `DBHost`      | `0.0.0.0`                | Database Host                 |
+| `DBPort`      | `3306`                   | Database Port                 |
+| `DBName`      | `test`                   | Database Name                 |
+| `JWTSecret`   | `secret`                 | JWT Token Secret key          |
 
 #### Checklist
-- [x] Implement Dependency Injection (go-fx) 
+
+- [x] Implement Dependency Injection (go-fx)
 - [x] Routing (gin web framework)
 - [x] Environment Files
 - [x] Logging (file saving on `production`) [zap](https://github.com/uber-go/zap)
@@ -25,5 +28,5 @@ Trying to implement clean architecture with gin framework.
 - [x] Repositories
 - [x] Implementing Basic CRUD Operation
 - [x] Authentication (JWT)
-- [ ] Dockerize Application with Debugging Support Enabled
+- [x] Dockerize Application with Debugging Support Enabled. Debugger runs at `5002`. Vs code configuration is at `.vscode/launch.json` which will attach debugger to remote application. 
 - [ ] OpenAPI Documentation
