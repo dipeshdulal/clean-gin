@@ -7,6 +7,7 @@ services:
       dockerfile: ./docker/web.Dockerfile
     ports:
       - 5000:5000
+      - 5002:2345
     volumes:
       - .:/clean_web
     env_file: .env
