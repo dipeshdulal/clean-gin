@@ -3,13 +3,13 @@ package bootstrap
 import (
 	"context"
 
-	"github.com/dipeshdulal/clean-gin/controllers"
+	"github.com/dipeshdulal/clean-gin/api/controllers"
+	"github.com/dipeshdulal/clean-gin/api/middlewares"
+	"github.com/dipeshdulal/clean-gin/api/repository"
+	"github.com/dipeshdulal/clean-gin/api/routes"
+	"github.com/dipeshdulal/clean-gin/api/services"
 	"github.com/dipeshdulal/clean-gin/lib"
-	"github.com/dipeshdulal/clean-gin/middlewares"
 	"github.com/dipeshdulal/clean-gin/models"
-	"github.com/dipeshdulal/clean-gin/repository"
-	"github.com/dipeshdulal/clean-gin/routes"
-	"github.com/dipeshdulal/clean-gin/services"
 	"go.uber.org/fx"
 )
 

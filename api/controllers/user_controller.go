@@ -6,7 +6,7 @@ import (
 
 	"github.com/dipeshdulal/clean-gin/lib"
 	"github.com/dipeshdulal/clean-gin/models"
-	"github.com/dipeshdulal/clean-gin/services"
+	"github.com/dipeshdulal/clean-gin/api/services"
 	"github.com/gin-gonic/gin"
 )
 
