@@ -29,4 +29,3 @@ Trying to implement clean architecture with gin framework.
 - [x] Implementing Basic CRUD Operation
 - [x] Authentication (JWT)
 - [x] Dockerize Application with Debugging Support Enabled. Debugger runs at `5002`. Vs code configuration is at `.vscode/launch.json` which will attach debugger to remote application. 
-- [ ] OpenAPI Documentation
