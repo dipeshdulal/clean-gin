@@ -16,6 +16,17 @@ Trying to implement clean architecture with gin framework.
 | `DBName`      | `test`                   | Database Name                 |
 | `JWTSecret`   | `secret`                 | JWT Token Secret key          |
 
+#### Migration Commands
+
+| Key            | Desc                                           |
+| -------------- | ---------------------------------------------- |
+| `migrate-up`   | runs migration up command                      |
+| `migrate-down` | runs migration down command                    |
+| `force`        | Set particular version but don't run migration |
+| `goto`         | Migrate to particular version                  |
+| `drop`         | Drop everything inside database                |
+| `create`       | Create new migration file(up & down)           |
+
 #### Checklist
 
 - [x] Implement Dependency Injection (go-fx)
@@ -29,4 +40,4 @@ Trying to implement clean architecture with gin framework.
 - [x] Implementing Basic CRUD Operation
 - [x] Authentication (JWT)
 - [x] Migration
-- [x] Dockerize Application with Debugging Support Enabled. Debugger runs at `5002`. Vs code configuration is at `.vscode/launch.json` which will attach debugger to remote application. 
+- [x] Dockerize Application with Debugging Support Enabled. Debugger runs at `5002`. Vs code configuration is at `.vscode/launch.json` which will attach debugger to remote application.
