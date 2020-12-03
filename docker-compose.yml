@@ -11,6 +11,7 @@ services:
     volumes:
       - .:/clean_web
     env_file: .env
+    container_name: clean-gin-web
     depends_on:
       - database
 
