@@ -18,14 +18,14 @@ Trying to implement clean architecture with gin framework.
 
 #### Migration Commands
 
-| Key            | Desc                                           |
+| Command            | Desc                                           |
 | -------------- | ---------------------------------------------- |
-| `migrate-up`   | runs migration up command                      |
-| `migrate-down` | runs migration down command                    |
-| `force`        | Set particular version but don't run migration |
-| `goto`         | Migrate to particular version                  |
-| `drop`         | Drop everything inside database                |
-| `create`       | Create new migration file(up & down)           |
+| `make migrate-up`   | runs migration up command                      |
+| `make migrate-down` | runs migration down command                    |
+| `make force`        | Set particular version but don't run migration |
+| `make goto`         | Migrate to particular version                  |
+| `make drop`         | Drop everything inside database                |
+| `make create`       | Create new migration file(up & down)           |
 
 #### Checklist
 
