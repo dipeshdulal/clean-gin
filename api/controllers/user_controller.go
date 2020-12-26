@@ -95,6 +95,37 @@ func (u UserController) SaveUser(c *gin.Context) {
 	c.JSON(200, gin.H{"data": "user created"})
 }
 
+// SaveUserWOTrx saves the user without transaction for comparision
+func (u UserController) SaveUserWOTrx(c *gin.Context) {
+	user := models.User{}
+
+	if err := c.ShouldBindJSON(&user); err != nil {
+		u.logger.Zap.Error(err)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	if err := u.service.CreateUser(user); err != nil {
+		u.logger.Zap.Error(err)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	if err := u.service.CreateUser(user); err != nil {
+		u.logger.Zap.Error(err)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(200, gin.H{"data": "user created"})
+}
+
 // UpdateUser updates user
 func (u UserController) UpdateUser(c *gin.Context) {
 	user := models.User{}
