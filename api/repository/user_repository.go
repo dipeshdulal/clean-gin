@@ -3,18 +3,31 @@ package repository
 import (
 	"github.com/dipeshdulal/clean-gin/lib"
 	"github.com/dipeshdulal/clean-gin/models"
+	"github.com/jinzhu/gorm"
 )
 
 // UserRepository database structure
 type UserRepository struct {
-	db lib.Database
+	db     lib.Database
+	logger lib.Logger
 }
 
 // NewUserRepository creates a new user repository
-func NewUserRepository(db lib.Database) UserRepository {
+func NewUserRepository(db lib.Database, logger lib.Logger) UserRepository {
 	return UserRepository{
-		db: db,
+		db:     db,
+		logger: logger,
 	}
+}
+
+// WithTrx enables repository with transaction
+func (r UserRepository) WithTrx(trxHandle *gorm.DB) UserRepository {
+	if trxHandle == nil {
+		r.logger.Zap.Error("Transaction Database not found in gin context. ")
+		return r
+	}
+	r.db.DB = trxHandle
+	return r
 }
 
 // GetAll gets all users
