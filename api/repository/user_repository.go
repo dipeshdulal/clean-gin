@@ -3,7 +3,7 @@ package repository
 import (
 	"github.com/dipeshdulal/clean-gin/lib"
 	"github.com/dipeshdulal/clean-gin/models"
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
 )
 
 // UserRepository database structure
