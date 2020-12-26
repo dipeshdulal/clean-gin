@@ -4,10 +4,12 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/dipeshdulal/clean-gin/api/services"
+	"github.com/dipeshdulal/clean-gin/constants"
 	"github.com/dipeshdulal/clean-gin/lib"
 	"github.com/dipeshdulal/clean-gin/models"
-	"github.com/dipeshdulal/clean-gin/api/services"
 	"github.com/gin-gonic/gin"
+	"github.com/jinzhu/gorm"
 )
 
 // UserController data type
@@ -64,6 +66,7 @@ func (u UserController) GetUser(c *gin.Context) {
 // SaveUser saves the user
 func (u UserController) SaveUser(c *gin.Context) {
 	user := models.User{}
+	trxHandle := c.MustGet(constants.DBTransaction).(*gorm.DB)
 
 	if err := c.ShouldBindJSON(&user); err != nil {
 		u.logger.Zap.Error(err)
@@ -73,7 +76,15 @@ func (u UserController) SaveUser(c *gin.Context) {
 		return
 	}
 
-	if err := u.service.CreateUser(user); err != nil {
+	if err := u.service.WithTrx(trxHandle).CreateUser(user); err != nil {
+		u.logger.Zap.Error(err)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	if err := u.service.WithTrx(trxHandle).CreateUser(user); err != nil {
 		u.logger.Zap.Error(err)
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
