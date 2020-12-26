@@ -5,6 +5,7 @@ import (
 	"github.com/dipeshdulal/clean-gin/lib"
 	"github.com/dipeshdulal/clean-gin/models"
 	"github.com/jinzhu/copier"
+	"github.com/jinzhu/gorm"
 )
 
 // UserService service layer
@@ -19,6 +20,12 @@ func NewUserService(logger lib.Logger, repository repository.UserRepository) Use
 		logger:     logger,
 		repository: repository,
 	}
+}
+
+// WithTrx delegates transaction to repository database
+func (s UserService) WithTrx(trxHandle *gorm.DB) UserService {
+	s.repository = s.repository.WithTrx(trxHandle)
+	return s
 }
 
 // GetOneUser gets one user
