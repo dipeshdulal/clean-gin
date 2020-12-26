@@ -35,6 +35,7 @@ func bootstrap(
 	database lib.Database,
 	migrations models.Migrations,
 ) {
+	conn, _ := database.DB.DB()
 
 	lifecycle.Append(fx.Hook{
 		OnStart: func(context.Context) error {
@@ -43,6 +44,7 @@ func bootstrap(
 			logger.Zap.Info("------- CLEAN -------")
 			logger.Zap.Info("---------------------")
 
+			conn.SetMaxOpenConns(10)
 			go func() {
 				migrations.Migrate()
 				middlewares.Setup()
@@ -53,7 +55,7 @@ func bootstrap(
 		},
 		OnStop: func(context.Context) error {
 			logger.Zap.Info("Stopping Application")
-			database.DB.Close()
+			conn.Close()
 			return nil
 		},
 	})
