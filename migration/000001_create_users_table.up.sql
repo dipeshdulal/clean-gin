@@ -8,5 +8,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `stripe_account_id` VARCHAR(100) NULL,
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`id`),
+  CONSTRAINT email_unique UNIQUE(email)
+)ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;

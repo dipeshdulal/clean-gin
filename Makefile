@@ -1,5 +1,5 @@
 
-MIGRATE=docker exec -it clean-gin-web migrate -path=migration -database "mysql://root:root@tcp(database:3306)/test" -verbose
+MIGRATE=docker-compose exec web migrate -path=migration -database "mysql://root:root@tcp(database:3306)/clean_gin" -verbose
 
 migrate-up:
 		$(MIGRATE) up
