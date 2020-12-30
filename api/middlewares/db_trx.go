@@ -15,11 +15,20 @@ type DatabaseTrx struct {
 	db      lib.Database
 }
 
+// statusInList function checks if context writer status is in provided list
+func statusInList(status int, statusList []int) bool {
+	for _, i := range statusList {
+		if i == status {
+			return true
+		}
+	}
+	return false
+}
+
 // NewDatabaseTrx creates new database transactions middleware
 func NewDatabaseTrx(
 	handler lib.RequestHandler,
 	logger lib.Logger,
-	env lib.Env,
 	db lib.Database,
 ) DatabaseTrx {
 	return DatabaseTrx{
@@ -29,13 +38,13 @@ func NewDatabaseTrx(
 	}
 }
 
-// Setup sets up cors middleware
+// Setup sets up database transaction middleware
 func (m DatabaseTrx) Setup() {
-	m.logger.Zap.Info("Setting up cors middleware")
+	m.logger.Zap.Info("setting up database transaction middleware")
 
 	m.handler.Gin.Use(func(c *gin.Context) {
 		txHandle := m.db.DB.Begin()
-		m.logger.Zap.Info("Build transaction")
+		m.logger.Zap.Info("beginning database transaction")
 
 		defer func() {
 			if r := recover(); r != nil {
@@ -46,14 +55,14 @@ func (m DatabaseTrx) Setup() {
 		c.Set(constants.DBTransaction, txHandle)
 		c.Next()
 
-		// rollback transaction when error
+		// rollback transaction on server errors
 		if c.Writer.Status() == http.StatusInternalServerError {
 			m.logger.Zap.Info("rolling back transaction due to status code: 500")
 			txHandle.Rollback()
 		}
 
-		// commit transaction on ok status
-		if c.Writer.Status() == http.StatusOK {
+		// commit transaction on success status
+		if statusInList(c.Writer.Status(), []int{http.StatusOK, http.StatusCreated}) {
 			m.logger.Zap.Info("committing transactions")
 			if err := txHandle.Commit().Error; err != nil {
 				m.logger.Zap.Error("trx commit error: ", err)
