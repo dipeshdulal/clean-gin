@@ -9,7 +9,6 @@ import (
 	"github.com/dipeshdulal/clean-gin/api/routes"
 	"github.com/dipeshdulal/clean-gin/api/services"
 	"github.com/dipeshdulal/clean-gin/lib"
-	"github.com/dipeshdulal/clean-gin/models"
 	"go.uber.org/fx"
 )
 
@@ -20,7 +19,6 @@ var Module = fx.Options(
 	lib.Module,
 	services.Module,
 	middlewares.Module,
-	models.Module,
 	repository.Module,
 	fx.Invoke(bootstrap),
 )
@@ -33,7 +31,6 @@ func bootstrap(
 	logger lib.Logger,
 	middlewares middlewares.Middlewares,
 	database lib.Database,
-	migrations models.Migrations,
 ) {
 	conn, _ := database.DB.DB()
 
@@ -46,7 +43,6 @@ func bootstrap(
 
 			conn.SetMaxOpenConns(10)
 			go func() {
-				migrations.Migrate()
 				middlewares.Setup()
 				routes.Setup()
 				handler.Gin.Run(env.ServerPort)
