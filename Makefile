@@ -18,7 +18,7 @@ drop:
 
 create:
 		@read -p  "What is the name of migration?" NAME; \
-		migrate create -ext sql -seq -dir migration  $$NAME
+		$(MIGRATE) create -ext sql -seq -dir migration  $$NAME
 
 .PHONY: migrate-up migrate-down force goto drop create
 
