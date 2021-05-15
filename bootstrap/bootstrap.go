@@ -5,10 +5,10 @@ import (
 
 	"github.com/dipeshdulal/clean-gin/api/controllers"
 	"github.com/dipeshdulal/clean-gin/api/middlewares"
-	"github.com/dipeshdulal/clean-gin/api/repository"
 	"github.com/dipeshdulal/clean-gin/api/routes"
-	"github.com/dipeshdulal/clean-gin/api/services"
 	"github.com/dipeshdulal/clean-gin/lib"
+	"github.com/dipeshdulal/clean-gin/repository"
+	"github.com/dipeshdulal/clean-gin/services"
 	"go.uber.org/fx"
 )
 
