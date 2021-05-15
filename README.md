@@ -4,22 +4,24 @@ Trying to implement clean architecture with gin framework.
 
 #### Environment Variables
 
-| Key           | Value                    | Desc                          |
-| ------------- | ------------------------ | ----------------------------- |
-| `ServerPort`  | `:5000`                  | Port at which app runs        |
-| `Environment` | `development,production` | App running Environment       |
-| `LogOutput`   | `./server.log`           | Output Directory to save logs |
-| `DBUsername`  | `username`               | Database Username             |
-| `DBPassword`  | `password`               | Database Password             |
-| `DBHost`      | `0.0.0.0`                | Database Host                 |
-| `DBPort`      | `3306`                   | Database Port                 |
-| `DBName`      | `test`                   | Database Name                 |
-| `JWTSecret`   | `secret`                 | JWT Token Secret key          |
+| Key            | Value                    | Desc                             |
+| -------------- | ------------------------ | -------------------------------- |
+| `SERVER_PORT`  | `5000`                   | Port at which app runs           |
+| `ENV`          | `development,production` | App running Environment          |
+| `LOG_OUTPUT`   | `./server.log`           | Output Directory to save logs    |
+| `DB_USER`      | `username`               | Database Username                |
+| `DB_PASS`      | `password`               | Database Password                |
+| `DB_HOST`      | `0.0.0.0`                | Database Host                    |
+| `DB_PORT`      | `3306`                   | Database Port                    |
+| `DB_NAME`      | `test`                   | Database Name                    |
+| `JWT_SECRET`   | `secret`                 | JWT Token Secret key             |
+| `ADMINER_PORT` | `5001`                   | Adminer DB Port                  |
+| `DEBUG_PORT`   | `5002`                   | Port that delve debugger runs in |
 
 #### Migration Commands
 
-| Command            | Desc                                           |
-| -------------- | ---------------------------------------------- |
+| Command             | Desc                                           |
+| ------------------- | ---------------------------------------------- |
 | `make migrate-up`   | runs migration up command                      |
 | `make migrate-down` | runs migration down command                    |
 | `make force`        | Set particular version but don't run migration |
