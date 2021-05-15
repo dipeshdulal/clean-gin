@@ -84,14 +84,6 @@ func (u UserController) SaveUser(c *gin.Context) {
 		return
 	}
 
-	if err := u.service.WithTrx(trxHandle).CreateUser(user); err != nil {
-		u.logger.Zap.Error(err)
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
-
 	c.JSON(200, gin.H{"data": "user created"})
 }
 
