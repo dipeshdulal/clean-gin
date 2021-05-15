@@ -13,7 +13,7 @@ import (
 
 // Database modal
 type Database struct {
-	DB *gorm.DB
+	*gorm.DB
 }
 
 // NewDatabase creates a new database instance
