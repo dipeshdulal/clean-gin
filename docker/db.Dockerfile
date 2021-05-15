@@ -1,3 +1,3 @@
-FROM mysql:5.7.22
+FROM mysql/mysql-server:8.0
 
 COPY ./docker/custom.cnf /etc/mysql/conf.d/custom.cnf
