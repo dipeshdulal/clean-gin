@@ -1,38 +1,39 @@
 package lib
 
-import "os"
+import (
+	"log"
+
+	"github.com/spf13/viper"
+)
 
 // Env has environment stored
 type Env struct {
-	ServerPort  string
-	Environment string
-	LogOutput   string
-	DBUsername  string
-	DBPassword  string
-	DBHost      string
-	DBPort      string
-	DBName      string
-	JWTSecret   string
+	ServerPort  string `mapstructure:"SERVER_PORT"`
+	Environment string `mapstructure:"ENV"`
+	LogOutput   string `mapstructure:"LOG_OUTPUT"`
+	DBUsername  string `mapstructure:"DB_USER"`
+	DBPassword  string `mapstructure:"DB_PASS"`
+	DBHost      string `mapstructure:"DB_HOST"`
+	DBPort      string `mapstructure:"DB_PORT"`
+	DBName      string `mapstructure:"DB_NAME"`
+	JWTSecret   string `mapstructure:"JWT_SECRET"`
 }
 
 // NewEnv creates a new environment
 func NewEnv() Env {
 	env := Env{}
-	env.LoadEnv()
+	viper.SetConfigFile(".env")
+
+	err := viper.ReadInConfig()
+	if err != nil {
+		log.Fatal("☠️ cannot read configuration")
+	}
+
+	err = viper.Unmarshal(&env)
+	if err != nil {
+		log.Fatal("☠️ environment can't be loaded: ", err)
+	}
+
+	log.Printf("%+v \n", env)
 	return env
-}
-
-// LoadEnv loads environment
-func (env *Env) LoadEnv() {
-	env.ServerPort = os.Getenv("SERVER_PORT")
-	env.Environment = os.Getenv("ENV")
-	env.LogOutput = os.Getenv("LOG_OUTPUT")
-
-	env.DBUsername = os.Getenv("DB_USER")
-	env.DBPassword = os.Getenv("DB_PASS")
-	env.DBHost = os.Getenv("DB_HOST")
-	env.DBPort = os.Getenv("DB_PORT")
-	env.DBName = os.Getenv("DB_NAME")
-
-	env.JWTSecret = os.Getenv("JWT_SECRET")
 }
