@@ -1,5 +1,6 @@
+include .env
 
-MIGRATE=docker-compose exec web migrate -path=migration -database "mysql://root:root@tcp(database:3306)/clean_gin" -verbose
+MIGRATE=docker-compose exec web migrate -path=migration -database "mysql://$(DB_USER):$(DB_PASS)@tcp($(DB_HOST):$(DB_PORT))/$(DB_NAME)" -verbose
 
 migrate-up:
 		$(MIGRATE) up
