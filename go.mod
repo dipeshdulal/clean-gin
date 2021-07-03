@@ -8,7 +8,6 @@ require (
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/golang/protobuf v1.4.2 // indirect
 	github.com/google/go-cmp v0.5.1 // indirect
-	github.com/jinzhu/copier v0.0.0-20190924061706-b57f9002281a
 	github.com/joho/godotenv v1.3.0
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rs/cors v1.7.0
