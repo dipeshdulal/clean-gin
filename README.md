@@ -19,6 +19,8 @@ Trying to implement clean architecture with gin framework.
 | `DEBUG_PORT`   | `5002`                   | Port that delve debugger runs in |
 
 #### Migration Commands
+⚓️ &nbsp; Add argument `p=host` if you want to run the migration runner from the host environment instead of docker environment. 
+Check [#19](https://github.com/dipeshdulal/clean-gin/issues/19) for more details. eg; `make p=host migrate-up`
 
 | Command             | Desc                                           |
 | ------------------- | ---------------------------------------------- |
