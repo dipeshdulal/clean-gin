@@ -26,9 +26,5 @@ create:
 		@read -p  "What is the name of migration?" NAME; \
 		$(MIGRATE) create -ext sql -seq -dir migration  $$NAME
 
-test:
-
-
-
-.PHONY: migrate-up migrate-down force goto drop create test
+.PHONY: migrate-up migrate-down force goto drop create
 
