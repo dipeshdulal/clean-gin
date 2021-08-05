@@ -32,7 +32,7 @@ func (u UserController) GetOneUser(c *gin.Context) {
 
 	id, err := strconv.Atoi(paramID)
 	if err != nil {
-		u.logger.Zap.Error(err)
+		u.logger.Error(err)
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err,
 		})
@@ -41,7 +41,7 @@ func (u UserController) GetOneUser(c *gin.Context) {
 	user, err := u.service.GetOneUser(uint(id))
 
 	if err != nil {
-		u.logger.Zap.Error(err)
+		u.logger.Error(err)
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
@@ -58,7 +58,7 @@ func (u UserController) GetOneUser(c *gin.Context) {
 func (u UserController) GetUser(c *gin.Context) {
 	users, err := u.service.GetAllUser()
 	if err != nil {
-		u.logger.Zap.Error(err)
+		u.logger.Error(err)
 	}
 	c.JSON(200, gin.H{"data": users})
 }
@@ -69,7 +69,7 @@ func (u UserController) SaveUser(c *gin.Context) {
 	trxHandle := c.MustGet(constants.DBTransaction).(*gorm.DB)
 
 	if err := c.ShouldBindJSON(&user); err != nil {
-		u.logger.Zap.Error(err)
+		u.logger.Error(err)
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
@@ -77,7 +77,7 @@ func (u UserController) SaveUser(c *gin.Context) {
 	}
 
 	if err := u.service.WithTrx(trxHandle).CreateUser(user); err != nil {
-		u.logger.Zap.Error(err)
+		u.logger.Error(err)
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
@@ -98,7 +98,7 @@ func (u UserController) DeleteUser(c *gin.Context) {
 
 	id, err := strconv.Atoi(paramID)
 	if err != nil {
-		u.logger.Zap.Error(err)
+		u.logger.Error(err)
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err,
 		})
@@ -106,7 +106,7 @@ func (u UserController) DeleteUser(c *gin.Context) {
 	}
 
 	if err := u.service.DeleteUser(uint(id)); err != nil {
-		u.logger.Zap.Error(err)
+		u.logger.Error(err)
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})

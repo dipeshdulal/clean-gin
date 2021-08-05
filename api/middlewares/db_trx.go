@@ -40,11 +40,11 @@ func NewDatabaseTrx(
 
 // Setup sets up database transaction middleware
 func (m DatabaseTrx) Setup() {
-	m.logger.Zap.Info("setting up database transaction middleware")
+	m.logger.Info("setting up database transaction middleware")
 
 	m.handler.Gin.Use(func(c *gin.Context) {
 		txHandle := m.db.DB.Begin()
-		m.logger.Zap.Info("beginning database transaction")
+		m.logger.Info("beginning database transaction")
 
 		defer func() {
 			if r := recover(); r != nil {
@@ -57,15 +57,15 @@ func (m DatabaseTrx) Setup() {
 
 		// rollback transaction on server errors
 		if c.Writer.Status() == http.StatusInternalServerError {
-			m.logger.Zap.Info("rolling back transaction due to status code: 500")
+			m.logger.Info("rolling back transaction due to status code: 500")
 			txHandle.Rollback()
 		}
 
 		// commit transaction on success status
 		if statusInList(c.Writer.Status(), []int{http.StatusOK, http.StatusCreated}) {
-			m.logger.Zap.Info("committing transactions")
+			m.logger.Info("committing transactions")
 			if err := txHandle.Commit().Error; err != nil {
-				m.logger.Zap.Error("trx commit error: ", err)
+				m.logger.Error("trx commit error: ", err)
 			}
 		}
 	})

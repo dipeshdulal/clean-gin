@@ -41,11 +41,11 @@ func NewDatabase(env Env, zapLogger Logger) Database {
 	})
 
 	if err != nil {
-		zapLogger.Zap.Info("Url: ", url)
-		zapLogger.Zap.Panic(err)
+		zapLogger.Info("Url: ", url)
+		zapLogger.Panic(err)
 	}
 
-	zapLogger.Zap.Info("Database connection established")
+	zapLogger.Info("Database connection established")
 
 	return Database{
 		DB: db,
