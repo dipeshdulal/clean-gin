@@ -51,7 +51,7 @@ func (s JWTAuthService) CreateToken(user models.User) string {
 	tokenString, err := token.SignedString([]byte(s.env.JWTSecret))
 
 	if err != nil {
-		s.logger.Zap.Error("JWT validation failed: ", err)
+		s.logger.Error("JWT validation failed: ", err)
 	}
 
 	return tokenString

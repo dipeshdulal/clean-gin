@@ -22,7 +22,7 @@ func NewUserRepository(db lib.Database, logger lib.Logger) UserRepository {
 // WithTrx enables repository with transaction
 func (r UserRepository) WithTrx(trxHandle *gorm.DB) UserRepository {
 	if trxHandle == nil {
-		r.logger.Zap.Error("Transaction Database not found in gin context. ")
+		r.logger.Error("Transaction Database not found in gin context. ")
 		return r
 	}
 	r.Database.DB = trxHandle

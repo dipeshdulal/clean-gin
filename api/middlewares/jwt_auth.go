@@ -44,7 +44,7 @@ func (m JWTAuthMiddleware) Handler() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
 			})
-			m.logger.Zap.Error(err)
+			m.logger.Error(err)
 			c.Abort()
 			return
 		}
