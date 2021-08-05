@@ -7,7 +7,7 @@ import (
 
 // Logger structure
 type Logger struct {
-	Zap *zap.SugaredLogger
+	*zap.SugaredLogger
 }
 
 // NewLogger sets up logger
@@ -27,8 +27,5 @@ func NewLogger(env Env) Logger {
 
 	sugar := logger.Sugar()
 
-	return Logger{
-		Zap: sugar,
-	}
-
+	return Logger{sugar}
 }
