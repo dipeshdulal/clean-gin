@@ -1,8 +1,6 @@
 package lib
 
 import (
-	"log"
-
 	"github.com/spf13/viper"
 )
 
@@ -20,7 +18,8 @@ type Env struct {
 }
 
 // NewEnv creates a new environment
-func NewEnv() Env {
+func NewEnv(log Logger) Env {
+
 	env := Env{}
 	viper.SetConfigFile(".env")
 
@@ -34,6 +33,6 @@ func NewEnv() Env {
 		log.Fatal("☠️ environment can't be loaded: ", err)
 	}
 
-	log.Printf("%+v \n", env)
+	log.Infof("%+v \n", env)
 	return env
 }
