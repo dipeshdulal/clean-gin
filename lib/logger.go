@@ -16,6 +16,10 @@ type GinLogger struct {
 	*Logger
 }
 
+type FxLogger struct {
+	*Logger
+}
+
 var (
 	globalLogger *Logger
 	zapLogger    *zap.Logger
@@ -36,6 +40,17 @@ func (l Logger) GetGinLogger() GinLogger {
 		zap.WithCaller(false),
 	)
 	return GinLogger{
+		Logger: newSugaredLogger(logger),
+	}
+}
+
+// GetFxLogger get the fx logger
+func (l Logger) GetFxLogger() FxLogger {
+	logger := zapLogger.WithOptions(
+		zap.WithCaller(false),
+	)
+
+	return FxLogger{
 		Logger: newSugaredLogger(logger),
 	}
 }
@@ -71,4 +86,9 @@ func newLogger() Logger {
 func (l GinLogger) Write(p []byte) (n int, err error) {
 	l.Info(string(p))
 	return len(p), nil
+}
+
+// Printf prits go-fx logs
+func (l FxLogger) Printf(str string, args ...interface{}) {
+	l.Infof(str, args)
 }
