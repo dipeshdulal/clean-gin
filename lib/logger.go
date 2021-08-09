@@ -1,6 +1,8 @@
 package lib
 
 import (
+	"os"
+
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -10,22 +12,63 @@ type Logger struct {
 	*zap.SugaredLogger
 }
 
-// NewLogger sets up logger
-func NewLogger(env Env) Logger {
+type GinLogger struct {
+	*Logger
+}
+
+var (
+	globalLogger *Logger
+	zapLogger    *zap.Logger
+)
+
+// GetLogger get the logger
+func GetLogger() Logger {
+	if globalLogger == nil {
+		logger := newLogger()
+		globalLogger = &logger
+	}
+	return *globalLogger
+}
+
+// GetGinLogger get the gin logger
+func (l Logger) GetGinLogger() GinLogger {
+	logger := zapLogger.WithOptions(
+		zap.WithCaller(false),
+	)
+	return GinLogger{
+		Logger: newSugaredLogger(logger),
+	}
+}
+
+func newSugaredLogger(logger *zap.Logger) *Logger {
+	return &Logger{
+		SugaredLogger: logger.Sugar(),
+	}
+}
+
+// newLogger sets up logger
+func newLogger() Logger {
 
 	config := zap.NewDevelopmentConfig()
+	env := os.Getenv("ENV")
+	logOutput := os.Getenv("LOG_OUTPUT")
 
-	if env.Environment == "development" {
+	if env == "development" {
 		config.EncoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
 	}
 
-	if env.Environment == "production" && env.LogOutput != "" {
-		config.OutputPaths = []string{env.LogOutput}
+	if env == "production" && logOutput != "" {
+		config.OutputPaths = []string{logOutput}
 	}
 
-	logger, _ := config.Build()
+	zapLogger, _ = config.Build()
+	logger := newSugaredLogger(zapLogger)
 
-	sugar := logger.Sugar()
+	return *logger
+}
 
-	return Logger{sugar}
+// Write interface implementation for gin-framework
+func (l GinLogger) Write(p []byte) (n int, err error) {
+	l.Info(string(p))
+	return len(p), nil
 }
