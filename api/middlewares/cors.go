@@ -23,7 +23,7 @@ func NewCorsMiddleware(handler lib.RequestHandler, logger lib.Logger, env lib.En
 
 // Setup sets up cors middleware
 func (m CorsMiddleware) Setup() {
-	m.logger.Zap.Info("Setting up cors middleware")
+	m.logger.Info("Setting up cors middleware")
 
 	debug := m.env.Environment == "development"
 	m.handler.Gin.Use(cors.New(cors.Options{

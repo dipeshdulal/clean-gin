@@ -11,7 +11,8 @@ services:
     volumes:
       - .:/clean_web
     env_file: .env
-    container_name: clean-gin-web
+    security_opt:
+      - seccomp:unconfined
     depends_on:
       - database
 
@@ -20,8 +21,8 @@ services:
       context: .
       dockerfile: ./docker/db.Dockerfile
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASS}
-      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: "${DB_PASS}"
+      MYSQL_DATABASE: "${DB_NAME}"
       MYSQL_ROOT_HOST: "%"
     command:
       [

@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/dipeshdulal/clean-gin/api/services"
 	"github.com/dipeshdulal/clean-gin/lib"
+	"github.com/dipeshdulal/clean-gin/services"
 	"github.com/gin-gonic/gin"
 )
 
@@ -44,7 +44,7 @@ func (m JWTAuthMiddleware) Handler() gin.HandlerFunc {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
 			})
-			m.logger.Zap.Error(err)
+			m.logger.Error(err)
 			c.Abort()
 			return
 		}
