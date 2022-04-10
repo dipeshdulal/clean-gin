@@ -1,24 +1,29 @@
 
-MIGRATE=docker-compose exec web migrate -path=migration -database "mysql://root:root@tcp(database:3306)/clean_gin" -verbose
+MIGRATE=docker-compose exec web sql-migrate
+
+ifeq ($(p),host)
+ 	MIGRATE=sql-migrate
+endif
+
+migrate-status:
+	$(MIGRATE) status
 
 migrate-up:
-		$(MIGRATE) up
+	$(MIGRATE) up
+
 migrate-down:
-		$(MIGRATE) down 
-force:
-		@read -p  "Which version do you want to force?" VERSION; \
-		$(MIGRATE) force $$VERSION
+	$(MIGRATE) down 
 
-goto:
-		@read -p  "Which version do you want to migrate?" VERSION; \
-		$(MIGRATE) goto $$VERSION
-
-drop:
-		$(MIGRATE) drop
+redo:
+	@read -p  "Are you sure to reapply the last migration? [y/n]" -n 1 -r; \
+	if [[ $$REPLY =~ ^[Yy] ]]; \
+	then \
+		$(MIGRATE) redo; \
+	fi
 
 create:
-		@read -p  "What is the name of migration?" NAME; \
-		$(MIGRATE) create -ext sql -seq -dir migration  $$NAME
+	@read -p  "What is the name of migration?" NAME; \
+	${MIGRATE} new $$NAME
 
-.PHONY: migrate-up migrate-down force goto drop create
+.PHONY: migrate-status migrate-up migrate-down redo create
 

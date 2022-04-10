@@ -24,15 +24,15 @@ func NewEnv() Env {
 
 // LoadEnv loads environment
 func (env *Env) LoadEnv() {
-	env.ServerPort = os.Getenv("ServerPort")
-	env.Environment = os.Getenv("Environment")
-	env.LogOutput = os.Getenv("LogOutput")
+	env.ServerPort = os.Getenv("SERVER_PORT")
+	env.Environment = os.Getenv("ENVIRONMENT")
+	env.LogOutput = os.Getenv("LOG_OUTPUT")
 
-	env.DBUsername = os.Getenv("DBUsername")
-	env.DBPassword = os.Getenv("DBPassword")
-	env.DBHost = os.Getenv("DBHost")
-	env.DBPort = os.Getenv("DBPort")
-	env.DBName = os.Getenv("DBName")
+	env.DBUsername = os.Getenv("DB_USER")
+	env.DBPassword = os.Getenv("DB_PASS")
+	env.DBHost = os.Getenv("DB_HOST")
+	env.DBPort = os.Getenv("DB_PORT")
+	env.DBName = os.Getenv("DB_NAME")
 
-	env.JWTSecret = os.Getenv("JWTSecret")
+	env.JWTSecret = os.Getenv("JWT_SECRET")
 }

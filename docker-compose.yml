@@ -6,8 +6,8 @@ services:
       context: .
       dockerfile: ./docker/web.Dockerfile
     ports:
-      - 5000:5000
-      - 5002:2345
+      - ${SERVER_PORT}:${SERVER_PORT}
+      - ${DEBUG_PORT}:2345
     volumes:
       - .:/clean_web
     env_file: .env
@@ -20,20 +20,24 @@ services:
       context: .
       dockerfile: ./docker/db.Dockerfile
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: root
-      MYSQL_PASSWORD: secret
-      MYSQL_DATABASE: clean_gin
+      MYSQL_ROOT_PASSWORD: ${DB_PASS}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_HOST: "%"
+    command:
+      [
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_unicode_ci",
+        "--default-authentication-plugin=mysql_native_password",
+      ]
     ports:
-      - 33066:3306
+      - 33068:3306
     volumes:
-      - clean_data:/var/lib/mysql
+      - clean_db:/var/lib/mysql
 
   adminer:
     image: adminer
     ports:
-      - 5001:8080
+      - ${ADMINER_PORT}:8080
 
 volumes:
-  clean_data:
-      
+  clean_db:
