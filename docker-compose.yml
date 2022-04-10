@@ -24,7 +24,12 @@ services:
       MYSQL_ROOT_PASSWORD: "${DB_PASS}"
       MYSQL_DATABASE: "${DB_NAME}"
       MYSQL_ROOT_HOST: "%"
-    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci','--default-authentication-plugin=mysql_native_password']
+    command:
+      [
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_unicode_ci",
+        "--default-authentication-plugin=mysql_native_password",
+      ]
     ports:
       - 33068:3306
     volumes:
