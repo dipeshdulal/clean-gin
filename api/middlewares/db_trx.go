@@ -55,18 +55,15 @@ func (m DatabaseTrx) Setup() {
 		c.Set(constants.DBTransaction, txHandle)
 		c.Next()
 
-		// rollback transaction on server errors
-		if c.Writer.Status() == http.StatusInternalServerError {
-			m.logger.Info("rolling back transaction due to status code: 500")
-			txHandle.Rollback()
-		}
-
 		// commit transaction on success status
-		if statusInList(c.Writer.Status(), []int{http.StatusOK, http.StatusCreated}) {
+		if statusInList(c.Writer.Status(), []int{http.StatusOK, http.StatusCreated, http.StatusNoContent}) {
 			m.logger.Info("committing transactions")
 			if err := txHandle.Commit().Error; err != nil {
 				m.logger.Error("trx commit error: ", err)
 			}
+		} else {
+			m.logger.Info("rolling back transaction due to status code: 500")
+			txHandle.Rollback()
 		}
 	})
 }
