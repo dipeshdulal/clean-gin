@@ -5,21 +5,21 @@ import (
 	"strconv"
 
 	"github.com/dipeshdulal/clean-gin/constants"
+	"github.com/dipeshdulal/clean-gin/domains"
 	"github.com/dipeshdulal/clean-gin/lib"
 	"github.com/dipeshdulal/clean-gin/models"
-	"github.com/dipeshdulal/clean-gin/services"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
 // UserController data type
 type UserController struct {
-	service services.UserService
+	service domains.UserService
 	logger  lib.Logger
 }
 
 // NewUserController creates new user controller
-func NewUserController(userService services.UserService, logger lib.Logger) UserController {
+func NewUserController(userService domains.UserService, logger lib.Logger) UserController {
 	return UserController{
 		service: userService,
 		logger:  logger,

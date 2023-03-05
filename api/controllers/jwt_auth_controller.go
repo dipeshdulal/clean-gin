@@ -1,23 +1,23 @@
 package controllers
 
 import (
+	"github.com/dipeshdulal/clean-gin/domains"
 	"github.com/dipeshdulal/clean-gin/lib"
-	"github.com/dipeshdulal/clean-gin/services"
 	"github.com/gin-gonic/gin"
 )
 
 // JWTAuthController struct
 type JWTAuthController struct {
 	logger      lib.Logger
-	service     services.JWTAuthService
-	userService services.UserService
+	service     domains.AuthService
+	userService domains.UserService
 }
 
 // NewJWTAuthController creates new controller
 func NewJWTAuthController(
 	logger lib.Logger,
-	service services.JWTAuthService,
-	userService services.UserService,
+	service domains.AuthService,
+	userService domains.UserService,
 ) JWTAuthController {
 	return JWTAuthController{
 		logger:      logger,
