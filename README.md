@@ -78,7 +78,7 @@ If you are running without docker be sure database configuration is provided in 
 - [ ] Swagger documentation examples [#25](https://github.com/dipeshdulal/clean-gin/issues/25)
 - [ ] Unit testing examples. [#23](https://github.com/dipeshdulal/clean-gin/issues/23)
 - [ ] File upload middelware. [#20](https://github.com/dipeshdulal/clean-gin/issues/20)
-- [ ] Use of Interfaces [#10](https://github.com/dipeshdulal/clean-gin/issues/10)
+- [x] Use of Interfaces [#10](https://github.com/dipeshdulal/clean-gin/issues/10)
 
 ## Contributing
 
