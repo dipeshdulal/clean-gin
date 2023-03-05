@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/dgrijalva/jwt-go"
+	"github.com/dipeshdulal/clean-gin/domains"
 	"github.com/dipeshdulal/clean-gin/lib"
 	"github.com/dipeshdulal/clean-gin/models"
 )
@@ -15,7 +16,7 @@ type JWTAuthService struct {
 }
 
 // NewJWTAuthService creates a new auth service
-func NewJWTAuthService(env lib.Env, logger lib.Logger) JWTAuthService {
+func NewJWTAuthService(env lib.Env, logger lib.Logger) domains.AuthService {
 	return JWTAuthService{
 		env:    env,
 		logger: logger,

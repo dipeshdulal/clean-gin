@@ -1,6 +1,7 @@
 package services
 
 import (
+	"github.com/dipeshdulal/clean-gin/domains"
 	"github.com/dipeshdulal/clean-gin/lib"
 	"github.com/dipeshdulal/clean-gin/models"
 	"github.com/dipeshdulal/clean-gin/repository"
@@ -14,7 +15,7 @@ type UserService struct {
 }
 
 // NewUserService creates a new userservice
-func NewUserService(logger lib.Logger, repository repository.UserRepository) UserService {
+func NewUserService(logger lib.Logger, repository repository.UserRepository) domains.UserService {
 	return UserService{
 		logger:     logger,
 		repository: repository,
@@ -22,7 +23,7 @@ func NewUserService(logger lib.Logger, repository repository.UserRepository) Use
 }
 
 // WithTrx delegates transaction to repository database
-func (s UserService) WithTrx(trxHandle *gorm.DB) UserService {
+func (s UserService) WithTrx(trxHandle *gorm.DB) domains.UserService {
 	s.repository = s.repository.WithTrx(trxHandle)
 	return s
 }

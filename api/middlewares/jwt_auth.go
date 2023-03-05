@@ -4,21 +4,21 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/dipeshdulal/clean-gin/domains"
 	"github.com/dipeshdulal/clean-gin/lib"
-	"github.com/dipeshdulal/clean-gin/services"
 	"github.com/gin-gonic/gin"
 )
 
 // JWTAuthMiddleware middleware for jwt authentication
 type JWTAuthMiddleware struct {
-	service services.JWTAuthService
+	service domains.AuthService
 	logger  lib.Logger
 }
 
 // NewJWTAuthMiddleware creates new jwt auth middleware
 func NewJWTAuthMiddleware(
 	logger lib.Logger,
-	service services.JWTAuthService,
+	service domains.AuthService,
 ) JWTAuthMiddleware {
 	return JWTAuthMiddleware{
 		service: service,
