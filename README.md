@@ -1,5 +1,7 @@
 # Clean Gin
 
+<img src="logo.svg" width="150px" />
+
 Clean architecture template with gin framework, go-fx as dependency container, gorm as orm for database related operations.
 
 To learn about project structure and dependency injection please go through [here](https://medium.com/wesionary-team/dependency-injection-with-go-fx-b698a6585cf0?source=friends_link&sk=26f391ae41c493946ee3434be2ed4971)
