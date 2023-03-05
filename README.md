@@ -4,6 +4,8 @@ Clean architecture template with gin framework, go-fx as dependency container, g
 
 To learn about project structure and dependency injection please go through [here](https://medium.com/wesionary-team/dependency-injection-with-go-fx-b698a6585cf0?source=friends_link&sk=26f391ae41c493946ee3434be2ed4971)
 
+Want to ask something, contribute or be part of discussions, 💬 Join us on [Discord](https://discord.gg/mmFdCpKhJx) server.
+
 ## Running the project
 
 - Make sure you have docker installed.
