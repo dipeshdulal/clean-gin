@@ -3,7 +3,6 @@ package lib
 import (
 	"context"
 	"fmt"
-	"os"
 	"time"
 
 	"go.uber.org/fx/fxevent"
@@ -155,7 +154,7 @@ func newSugaredLogger(logger *zap.Logger) *Logger {
 func newLogger(env Env) Logger {
 
 	config := zap.NewDevelopmentConfig()
-	logOutput := os.Getenv("LOG_OUTPUT")
+	logOutput := env.LogOutput
 
 	if env.Environment == "development" {
 		fmt.Println("encode level")
@@ -166,7 +165,7 @@ func newLogger(env Env) Logger {
 		config.OutputPaths = []string{logOutput}
 	}
 
-	logLevel := os.Getenv("LOG_LEVEL")
+	logLevel := env.LogLevel
 	level := zap.PanicLevel
 	switch logLevel {
 	case "debug":
